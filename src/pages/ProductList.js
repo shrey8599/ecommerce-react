@@ -7,9 +7,10 @@ function ProductList() {
 	const [categoryList, setCategoryList] = useState([]);
 	const [productList, setProductList] = useState([]);
 	const [username, setUsername] = useState('User');
-	const [currentCategory, setCurrentCategory] = useState(0);
+	const [currentCategory, setCurrentCategory] = useState('');
 	const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(-1);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		const data = {};
@@ -35,6 +36,7 @@ function ProductList() {
 	}, []);
 
 	const searchProduct = (e) => {
+		setSearchQuery(e.target.value);
 		const data = {
 			query: e.target.value
 		};
@@ -64,6 +66,34 @@ function ProductList() {
 			categoryId
 		};
 		fetchProducts(data);
+	}
+
+	const updateMinPrice = (e) => {
+        setMinPrice(e.target.value);
+        filterProduct(e.target.value, maxPrice, searchQuery);
+    }
+
+    const updateMaxPrice = (e) => {
+        setMaxPrice(e.target.value);
+        filterProduct(minPrice, e.target.value, searchQuery);
+    }
+
+	const filterProduct = (minPrice, maxPrice, searchQuery) => {
+		const data = {
+			query: searchQuery,
+			minPrice,
+			maxPrice,
+		};
+
+		if(currentCategory) {
+			data.categoryId = currentCategory;
+		}
+	
+        fetchProducts(data);
+	}
+
+	const clearFilter = () => {
+		window.location.href = "/products";
 	}
 
 	return (
@@ -103,7 +133,7 @@ function ProductList() {
 							<div className="price-filter">
 								<div className="price-filter-select d-flex flex-row justify-content-between">
 									<div className="form-group">
-										<select className="form-select">
+										<select className="form-select" onChange={updateMinPrice}>
 											<option value="0">0</option>
 											<option value="1000">1000</option>
 											<option value="2000">2000</option>
@@ -114,7 +144,7 @@ function ProductList() {
 										</select>
 									</div>
 									<div className="form-group">
-										<select className="form-select">
+										<select className="form-select" onChange={updateMaxPrice}>
 											<option value="1000">1000</option>
 											<option value="2000">2000</option>
 											<option value="5000">5000</option>
@@ -130,7 +160,7 @@ function ProductList() {
 									<div>Max Price</div>
 								</div>
 							</div>
-							<div className="btn btn-primary clear-filter"> Clear All Filters</div>
+							<div className="btn btn-primary clear-filter" onClick={clearFilter}> Clear All Filters</div>
 						</div>
 						<div className="product-list-box">
 							{
