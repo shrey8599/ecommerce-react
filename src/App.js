@@ -1,25 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProductDetails from "./pages/ProductDetails";
+import ProductList from "./pages/ProductList";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/common.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<Routes>
+				<Route
+					exact
+					path="/home"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<Home />
+						</Suspense>
+					}
+				/>
+        <Route
+					exact
+					path="/"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<Login />
+						</Suspense>
+					}
+				/>
+				<Route
+					exact
+					path="/cart"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<Cart />
+						</Suspense>
+					}
+				/>
+				<Route
+					exact
+					path="/checkout"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<Checkout />
+						</Suspense>
+					}
+				/>
+				<Route
+					exact
+					path="/products"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<ProductList />
+						</Suspense>
+					}
+				/>
+				<Route
+					exact
+					path="/product/:productid/details"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<ProductDetails />
+						</Suspense>
+					}
+				/>
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;
