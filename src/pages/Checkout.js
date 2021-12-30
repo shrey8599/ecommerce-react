@@ -76,6 +76,7 @@ function Checkout() {
                                         <div className="order-details-product-data d-flex flex-column">
                                             <div>{product.name}</div>
                                             <div>₹ {product.price}</div>
+                                            <div>Quantity : {product.quantity}</div>
                                         </div>
                                     </div>
                                 ))
@@ -108,7 +109,7 @@ function Checkout() {
                                     <div>
                                         <div className="confirm-payment-success-msg">Order Confirmed</div>
                                         <Link
-                                            to="/"
+                                            to="/home"
                                             className="btn btn-info continue-shopping-btn"
                                         >
                                             Continue Shopping

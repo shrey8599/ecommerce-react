@@ -35,6 +35,9 @@ function ProductDetails() {
 
         axios.post('http://localhost:4000/api/v1/order/add', data)
 			.then(function (response) {
+                const newProductDetails = {...productDetails};
+                newProductDetails.addedToCart = 1;
+                setProductDetails(newProductDetails)
 			})
 			.catch(function (error) {
 				console.log(error);

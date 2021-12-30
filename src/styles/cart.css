@@ -16,6 +16,11 @@
 	border-bottom: 1px solid #ccc;
 }
 
+#cartPage .cart-wrapper .order-details .no-items-cart {
+	margin-top: 50px;
+	font-size: 18px;
+}
+
 #cartPage .cart-wrapper .order-details .order-details-product {
 	margin-top: 20px;
 }

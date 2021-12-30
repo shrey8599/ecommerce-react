@@ -124,11 +124,13 @@ function ProductList() {
 								<input type="text" placeholder="Search by name" className="form-control" onChange={searchProduct} />
 							</div>
 							<div className="sidebar-title fw-bold">Categories</div>
+							<div>
 							{
 								categoryList.map((category) => (
 									<Link onClick={() => updateCategory(category.categoryId)} key={category.categoryId} className={"d-flex text-decoration-none " + (category.categoryId == currentCategory ? 'active' : undefined)} to={"/products?categoryId=" + category.categoryId}>{category.name}</Link>
 								))
 							}
+							</div>
 							<div className="sidebar-title">Filter by Price</div>
 							<div className="price-filter">
 								<div className="price-filter-select d-flex flex-row justify-content-between">

@@ -10,6 +10,50 @@ function Cart() {
 
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
+        fetchOrderDetails();
+    }, []);
+
+    const updateProductQuantity = (e, productId) => {
+        const data = {
+            productId,
+            quantity: e.target.value,
+            orderId: orderDetails.orderId,
+            userId: localStorage.getItem('userId')
+        };
+
+        axios.post('http://localhost:4000/api/v1/order/edit', data)
+            .then(function (response) {
+                if (response.data.success) {
+                    fetchOrderDetails();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const removeProductFromCart = (productId, quantity) => {
+        const data = {
+            productId,
+            quantity,
+            orderId: orderDetails.orderId,
+            userId: localStorage.getItem('userId'),
+            remove: true
+        };
+
+        axios.post('http://localhost:4000/api/v1/order/edit', data)
+            .then(function (response) {
+                if (response.data.success) {
+                    fetchOrderDetails();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+
+    const fetchOrderDetails = () => {
         const data = {
             userId: localStorage.getItem("userId")
         };
@@ -23,26 +67,7 @@ function Cart() {
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
-
-    const updateProductQuantity = (e, productId) => {
-		const data = {
-			productId,
-			quantity: e.target.value,
-			orderId: orderDetails.orderId,
-			userId: localStorage.getItem('userId')
-		};
-
-		axios.post('http://localhost:4000/api/v1/order/edit', data)
-            .then(function (response) {
-                if (response.data.success) {
-                    setOrderDetails(response.data.orderDetails);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-	}
+    }
 
     return (
         <div id="cartPage">
@@ -69,7 +94,7 @@ function Cart() {
                         <div className="order-details d-flex flex-column">
                             <div className="order-details-title fw-bold">Order Details</div>
                             {
-                                orderDetails.products && orderDetails.products.map((product) => (
+                                orderDetails.products && orderDetails.products.length > 0 ? orderDetails.products.map((product) => (
                                     <div className="order-details-product d-flex flex-row" key={product.productId}>
                                         <div className="order-details-product-img d-flex">
                                             <img src="https://img.favpng.com/8/17/0/product-design-clip-art-logo-food-png-favpng-TsCQEsJH2LUYN3d5Q6RzrTsqL.jpg" />
@@ -97,37 +122,43 @@ function Cart() {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div className="order-details-product-remove btn btn-default">Remove</div>
+                                            <div className="order-details-product-remove btn btn-info" onClick={() => removeProductFromCart(product.productId, product.quantity)}>Remove</div>
                                         </div>
                                     </div>
-                                ))
+                                )) : (
+                                    <div className="no-items-cart">No items in your cart</div>
+                                )
                             }
                         </div>
-                        <div className="price-details d-flex flex-column">
-                            <div className="price-details-box">
-                                <div className="price-details-title fw-bold">Price Details</div>
-                                <div className="price-details-data">
-                                    <div className="price-details-item d-flex flex-row justify-content-between">
-                                        <div>Price</div>
-                                        <div>₹ {orderDetails.total}</div>
+                        {
+                            orderDetails.products && orderDetails.products.length > 0 && (
+                                <div className="price-details d-flex flex-column">
+                                    <div className="price-details-box">
+                                        <div className="price-details-title fw-bold">Price Details</div>
+                                        <div className="price-details-data">
+                                            <div className="price-details-item d-flex flex-row justify-content-between">
+                                                <div>Price</div>
+                                                <div>₹ {orderDetails.total}</div>
+                                            </div>
+                                            <div className="price-details-item d-flex flex-row justify-content-between">
+                                                <div>Discount</div>
+                                                <div>₹ 0</div>
+                                            </div>
+                                            <div className="price-details-item d-flex flex-row justify-content-between">
+                                                <div>Delivery Charges</div>
+                                                <div>FREE</div>
+                                            </div>
+                                            <div className="price-details-item d-flex flex-row justify-content-between">
+                                                <div>Total</div>
+                                                <div>₹ {orderDetails.total}</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="price-details-item d-flex flex-row justify-content-between">
-                                        <div>Discount</div>
-                                        <div>₹ 0</div>
-                                    </div>
-                                    <div className="price-details-item d-flex flex-row justify-content-between">
-                                        <div>Delivery Charges</div>
-                                        <div>FREE</div>
-                                    </div>
-                                    <div className="price-details-item d-flex flex-row justify-content-between">
-                                        <div>Total</div>
-                                        <div>₹ {orderDetails.total}</div>
-                                    </div>
+                                    <Link className="continue-shopping-btn btn btn-info text-decoration-none" to={"/home"}>Continue Shopping</Link>
+                                    <Link className="checkout-btn btn btn-primary text-decoration-none" to={"/checkout"}>Checkout</Link>
                                 </div>
-                            </div>
-                            <Link className="continue-shopping-btn btn btn-default text-decoration-none" to={"/"}>Continue Shopping</Link>
-                            <Link className="checkout-btn btn btn-primary text-decoration-none" to={"/checkout"}>Checkout</Link>
-                        </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
