@@ -55,6 +55,7 @@ function Checkout() {
                                 <Link className="text-decoration-none" to={"/home"}>Ecommerce</Link>
                             </div>
                             <div className="user-actions d-flex flex-row">
+                                <Link className="text-decoration-none" to={"/account"}>Account</Link>
                                 <Link className="text-decoration-none" to={"/cart"}>Cart</Link>
                                 <div className="user-intro">Hi {username}</div>
                                 <div className="logout-btn">Logout</div>

@@ -19,14 +19,14 @@ function Home() {
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
         axios.post(BASE_URL + '/api/v1/category/all', {})
-        .then(function (response) {
-            if (response.data.success) {
-                setCategoryList(response.data.categories);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                if (response.data.success) {
+                    setCategoryList(response.data.categories);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -39,6 +39,7 @@ function Home() {
                                 <Link className="text-decoration-none" to={"/home"}>Ecommerce</Link>
                             </div>
                             <div className="user-actions d-flex flex-row">
+                                <Link className="text-decoration-none" to={"/account"}>Account</Link>
                                 <Link className="text-decoration-none" to={"/cart"}>Cart</Link>
                                 <div className="user-intro">Hi {username}</div>
                                 <div className="logout-btn" onClick={logoutFn}>Logout</div>

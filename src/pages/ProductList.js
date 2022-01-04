@@ -11,7 +11,7 @@ function ProductList() {
 	const [username, setUsername] = useState('User');
 	const [currentCategory, setCurrentCategory] = useState('');
 	const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(-1);
+	const [maxPrice, setMaxPrice] = useState(-1);
 	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
@@ -27,10 +27,10 @@ function ProductList() {
 				console.log(error);
 			});
 
-		if(currentCategory) {
-			
+		if (currentCategory) {
+
 		}
-		if(window.location.search) {
+		if (window.location.search) {
 			setCurrentCategory(window.location.search.split("=")[1]);
 			data.categoryId = window.location.search.split("=")[1];
 		}
@@ -43,11 +43,11 @@ function ProductList() {
 			query: e.target.value
 		};
 
-		if(currentCategory) {
+		if (currentCategory) {
 			data.categoryId = currentCategory;
 		}
-	
-        fetchProducts(data);
+
+		fetchProducts(data);
 	}
 
 	const fetchProducts = (data) => {
@@ -71,14 +71,14 @@ function ProductList() {
 	}
 
 	const updateMinPrice = (e) => {
-        setMinPrice(e.target.value);
-        filterProduct(e.target.value, maxPrice, searchQuery);
-    }
+		setMinPrice(e.target.value);
+		filterProduct(e.target.value, maxPrice, searchQuery);
+	}
 
-    const updateMaxPrice = (e) => {
-        setMaxPrice(e.target.value);
-        filterProduct(minPrice, e.target.value, searchQuery);
-    }
+	const updateMaxPrice = (e) => {
+		setMaxPrice(e.target.value);
+		filterProduct(minPrice, e.target.value, searchQuery);
+	}
 
 	const filterProduct = (minPrice, maxPrice, searchQuery) => {
 		const data = {
@@ -87,11 +87,11 @@ function ProductList() {
 			maxPrice,
 		};
 
-		if(currentCategory) {
+		if (currentCategory) {
 			data.categoryId = currentCategory;
 		}
-	
-        fetchProducts(data);
+
+		fetchProducts(data);
 	}
 
 	const clearFilter = () => {
@@ -108,6 +108,7 @@ function ProductList() {
 								<Link className="text-decoration-none" to={"/home"}>Ecommerce</Link>
 							</div>
 							<div className="user-actions d-flex flex-row">
+								<Link className="text-decoration-none" to={"/account"}>Account</Link>
 								<Link className="text-decoration-none" to={"/cart"}>Cart</Link>
 								<div className="user-intro">Hi {username}</div>
 								<div className="logout-btn">Logout</div>
@@ -127,11 +128,11 @@ function ProductList() {
 							</div>
 							<div className="sidebar-title fw-bold">Categories</div>
 							<div>
-							{
-								categoryList.map((category) => (
-									<Link onClick={() => updateCategory(category.categoryId)} key={category.categoryId} className={"d-flex text-decoration-none " + (category.categoryId == currentCategory ? 'active' : undefined)} to={"/products?categoryId=" + category.categoryId}>{category.name}</Link>
-								))
-							}
+								{
+									categoryList.map((category) => (
+										<Link onClick={() => updateCategory(category.categoryId)} key={category.categoryId} className={"d-flex text-decoration-none " + (category.categoryId == currentCategory ? 'active' : undefined)} to={"/products?categoryId=" + category.categoryId}>{category.name}</Link>
+									))
+								}
 							</div>
 							<div className="sidebar-title">Filter by Price</div>
 							<div className="price-filter">

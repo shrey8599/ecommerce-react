@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import AccountDetails from "./pages/AccountDetails";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Home from "./pages/Home";
@@ -23,12 +24,21 @@ function App() {
 						</Suspense>
 					}
 				/>
-        <Route
+				<Route
 					exact
 					path="/"
 					element={
 						<Suspense fallback={<div className="loader"></div>}>
 							<Login />
+						</Suspense>
+					}
+				/>
+				<Route
+					exact
+					path="/account"
+					element={
+						<Suspense fallback={<div className="loader"></div>}>
+							<AccountDetails />
 						</Suspense>
 					}
 				/>

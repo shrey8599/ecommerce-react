@@ -9,41 +9,41 @@ function ProductDetails() {
     const [productDetails, setProductDetails] = useState({});
     const [username, setUsername] = useState('User');
 
-	useEffect(() => {
+    useEffect(() => {
         setUsername(localStorage.getItem("username"));
         const productId = window.location.pathname.split('/')[2];
         const data = {
-			productId,
-			userId: localStorage.getItem("userId")
-		};
+            productId,
+            userId: localStorage.getItem("userId")
+        };
 
-		axios.post(BASE_URL + '/api/v1/product/details', data)
-			.then(function (response) {
-				if (response.data.success) {
-					setProductDetails(response.data.productDetails);
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-	}, []);
+        axios.post(BASE_URL + '/api/v1/product/details', data)
+            .then(function (response) {
+                if (response.data.success) {
+                    setProductDetails(response.data.productDetails);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     const addToCart = () => {
         const productId = window.location.pathname.split('/')[2];
         const data = {
-			productId,
-			userId: localStorage.getItem("userId")
-		};
+            productId,
+            userId: localStorage.getItem("userId")
+        };
 
         axios.post(BASE_URL + '/api/v1/order/add', data)
-			.then(function (response) {
-                const newProductDetails = {...productDetails};
+            .then(function (response) {
+                const newProductDetails = { ...productDetails };
                 newProductDetails.addedToCart = 1;
                 setProductDetails(newProductDetails)
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     return (
@@ -56,6 +56,7 @@ function ProductDetails() {
                                 <Link className="text-decoration-none" to={"/home"}>Ecommerce</Link>
                             </div>
                             <div className="user-actions d-flex flex-row">
+                                <Link className="text-decoration-none" to={"/account"}>Account</Link>
                                 <Link className="text-decoration-none" to={"/cart"}>Cart</Link>
                                 <div className="user-intro">Hi {username}</div>
                                 <div className="logout-btn">Logout</div>
@@ -80,17 +81,17 @@ function ProductDetails() {
                                 <div className="product-description-data">{productDetails.description}</div>
                             </div>
                             {
-								productDetails && productDetails.addedToCart == 1 ? (
-									<Link
-										className="product-details-action btn btn-primary text-decoration-none"
-										to={"/cart"}
-									>
-										Go To Cart
-									</Link>
-								) : (
-									<div className="product-details-action btn btn-primary text-decoration-none" onClick={addToCart}>Add To Cart</div>
-								)
-							}
+                                productDetails && productDetails.addedToCart == 1 ? (
+                                    <Link
+                                        className="product-details-action btn btn-primary text-decoration-none"
+                                        to={"/cart"}
+                                    >
+                                        Go To Cart
+                                    </Link>
+                                ) : (
+                                    <div className="product-details-action btn btn-primary text-decoration-none" onClick={addToCart}>Add To Cart</div>
+                                )
+                            }
                             <div className="add-to-cart-error-msg text-danger"></div>
                         </div>
                     </div>
