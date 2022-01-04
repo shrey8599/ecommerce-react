@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/home.css';
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function Home() {
     const [categoryList, setCategoryList] = useState([]);
     const [username, setUsername] = useState('User');
@@ -16,7 +18,7 @@ function Home() {
 
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
-        axios.post('http://localhost:4000/api/v1/category/all', {})
+        axios.post(BASE_URL + '/api/v1/category/all', {})
         .then(function (response) {
             if (response.data.success) {
                 setCategoryList(response.data.categories);

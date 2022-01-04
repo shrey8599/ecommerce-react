@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../styles/login.css';
 import { Link } from "react-router-dom";
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function Login() {
     const loginFn = () => {
         const username = document.getElementById("username");
@@ -13,7 +15,7 @@ function Login() {
             password: password.value
         };
 
-        axios.post('http://localhost:4000/api/v1/user/login', data)
+        axios.post(BASE_URL + '/api/v1/user/login', data)
             .then(function (response) {
                 if(response.data.success) {
                     localStorage.setItem("username", response.data.data.username)

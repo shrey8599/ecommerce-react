@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/checkout.css';
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function Checkout() {
     const [orderDetails, setOrderDetails] = useState({});
     const [confirmPaymentSuccess, setConfirmPaymentSuccess] = useState(false);
@@ -14,7 +16,7 @@ function Checkout() {
             userId: localStorage.getItem("userId")
         };
 
-        axios.post('http://localhost:4000/api/v1/order/details', data)
+        axios.post(BASE_URL + '/api/v1/order/details', data)
             .then(function (response) {
                 if (response.data.success) {
                     setOrderDetails(response.data.orderDetails);
@@ -32,7 +34,7 @@ function Checkout() {
             payment: true
         };
 
-        axios.post('http://localhost:4000/api/v1/order/edit', data)
+        axios.post(BASE_URL + '/api/v1/order/edit', data)
             .then(function (response) {
                 if (response.data.success) {
                     setConfirmPaymentSuccess(true);

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import '../styles/cart.css';
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function Cart() {
     const [orderDetails, setOrderDetails] = useState({});
     const [username, setUsername] = useState('User');
@@ -21,7 +23,7 @@ function Cart() {
             userId: localStorage.getItem('userId')
         };
 
-        axios.post('http://localhost:4000/api/v1/order/edit', data)
+        axios.post(BASE_URL + '/api/v1/order/edit', data)
             .then(function (response) {
                 if (response.data.success) {
                     fetchOrderDetails();
@@ -41,7 +43,7 @@ function Cart() {
             remove: true
         };
 
-        axios.post('http://localhost:4000/api/v1/order/edit', data)
+        axios.post(BASE_URL + '/api/v1/order/edit', data)
             .then(function (response) {
                 if (response.data.success) {
                     fetchOrderDetails();
@@ -58,7 +60,7 @@ function Cart() {
             userId: localStorage.getItem("userId")
         };
 
-        axios.post('http://localhost:4000/api/v1/order/details', data)
+        axios.post(BASE_URL + '/api/v1/order/details', data)
             .then(function (response) {
                 if (response.data.success) {
                     setOrderDetails(response.data.orderDetails);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/productList.css';
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function ProductList() {
 	const [categoryList, setCategoryList] = useState([]);
 	const [productList, setProductList] = useState([]);
@@ -15,7 +17,7 @@ function ProductList() {
 	useEffect(() => {
 		const data = {};
 		setUsername(localStorage.getItem("username"));
-		axios.post('http://localhost:4000/api/v1/category/all', {})
+		axios.post(BASE_URL + '/api/v1/category/all', {})
 			.then(function (response) {
 				if (response.data.success) {
 					setCategoryList(response.data.categories);
@@ -49,7 +51,7 @@ function ProductList() {
 	}
 
 	const fetchProducts = (data) => {
-		axios.post('http://localhost:4000/api/v1/product/all', data)
+		axios.post(BASE_URL + '/api/v1/product/all', data)
 			.then(function (response) {
 				if (response.data.success) {
 					setProductList(response.data.products);

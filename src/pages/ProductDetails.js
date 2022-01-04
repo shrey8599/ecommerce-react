@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/productDetails.css';
 
+const BASE_URL = 'http://13.235.87.215:4000';
+
 function ProductDetails() {
     const [productDetails, setProductDetails] = useState({});
     const [username, setUsername] = useState('User');
@@ -15,7 +17,7 @@ function ProductDetails() {
 			userId: localStorage.getItem("userId")
 		};
 
-		axios.post('http://localhost:4000/api/v1/product/details', data)
+		axios.post(BASE_URL + '/api/v1/product/details', data)
 			.then(function (response) {
 				if (response.data.success) {
 					setProductDetails(response.data.productDetails);
@@ -33,7 +35,7 @@ function ProductDetails() {
 			userId: localStorage.getItem("userId")
 		};
 
-        axios.post('http://localhost:4000/api/v1/order/add', data)
+        axios.post(BASE_URL + '/api/v1/order/add', data)
 			.then(function (response) {
                 const newProductDetails = {...productDetails};
                 newProductDetails.addedToCart = 1;
