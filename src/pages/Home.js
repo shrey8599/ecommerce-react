@@ -13,7 +13,7 @@ function Home() {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
 
-        window.location.href = "/login";
+        window.location.href = "/";
     }
 
     useEffect(() => {

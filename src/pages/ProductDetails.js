@@ -46,6 +46,13 @@ function ProductDetails() {
             });
     }
 
+    const logoutFn = () => {
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
+
+        window.location.href = "/";
+    }
+
     return (
         <div id="productDetailsPage">
             <div id="header">
@@ -59,7 +66,7 @@ function ProductDetails() {
                                 <Link className="text-decoration-none" to={"/account"}>Account</Link>
                                 <Link className="text-decoration-none" to={"/cart"}>Cart</Link>
                                 <div className="user-intro">Hi {username}</div>
-                                <div className="logout-btn">Logout</div>
+                                <div className="logout-btn" onClick={logoutFn}>Logout</div>
                             </div>
                         </div>
                     </div>
