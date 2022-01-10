@@ -15,9 +15,11 @@ function ProductList() {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
-		const data = {};
+		const data = {
+			token: localStorage.getItem("token")
+		};
 		setUsername(localStorage.getItem("username"));
-		axios.post(BASE_URL + '/api/v1/category/all', {})
+		axios.post(BASE_URL + '/api/v1/category/all', data)
 			.then(function (response) {
 				if (response.data.success) {
 					setCategoryList(response.data.categories);
@@ -40,7 +42,8 @@ function ProductList() {
 	const searchProduct = (e) => {
 		setSearchQuery(e.target.value);
 		const data = {
-			query: e.target.value
+			query: e.target.value,
+			token: localStorage.getItem("token")
 		};
 
 		if (currentCategory) {
@@ -65,7 +68,8 @@ function ProductList() {
 	const updateCategory = (categoryId) => {
 		setCurrentCategory(categoryId);
 		const data = {
-			categoryId
+			categoryId,
+			token: localStorage.getItem("token")
 		};
 		fetchProducts(data);
 	}
@@ -85,6 +89,7 @@ function ProductList() {
 			query: searchQuery,
 			minPrice,
 			maxPrice,
+			token: localStorage.getItem("token")
 		};
 
 		if (currentCategory) {
@@ -101,6 +106,7 @@ function ProductList() {
 	const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+		localStorage.removeItem('token')
 
         window.location.href = "/";
     }

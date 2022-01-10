@@ -5,6 +5,9 @@
 
 #homePage .category-list {
     margin-top: 50px;
+    width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #homePage .category-list .category-item {

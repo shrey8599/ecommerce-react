@@ -21,6 +21,7 @@ function Login() {
                 if (response.data.success) {
                     localStorage.setItem("username", response.data.data.username)
                     localStorage.setItem("userId", response.data.data.userId);
+                    localStorage.setItem("token", response.data.data.token);
                     window.location.href = "/home";
                 }
             })
@@ -43,6 +44,7 @@ function Login() {
                 if (response.data.success) {
                     localStorage.setItem("username", response.data.data.username)
                     localStorage.setItem("userId", response.data.data.userId);
+                    localStorage.setItem("token", response.data.data.token);
                     window.location.href = "/home";
                 }
             })

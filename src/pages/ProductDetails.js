@@ -14,7 +14,8 @@ function ProductDetails() {
         const productId = window.location.pathname.split('/')[2];
         const data = {
             productId,
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/product/details', data)
@@ -32,7 +33,8 @@ function ProductDetails() {
         const productId = window.location.pathname.split('/')[2];
         const data = {
             productId,
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/add', data)
@@ -49,6 +51,7 @@ function ProductDetails() {
     const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('token')
 
         window.location.href = "/";
     }

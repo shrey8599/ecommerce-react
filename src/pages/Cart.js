@@ -20,7 +20,8 @@ function Cart() {
             productId,
             quantity: e.target.value,
             orderId: orderDetails.orderId,
-            userId: localStorage.getItem('userId')
+            userId: localStorage.getItem('userId'),
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/edit', data)
@@ -40,7 +41,8 @@ function Cart() {
             quantity,
             orderId: orderDetails.orderId,
             userId: localStorage.getItem('userId'),
-            remove: true
+            remove: true,
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/edit', data)
@@ -57,7 +59,8 @@ function Cart() {
 
     const fetchOrderDetails = () => {
         const data = {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/details', data)
@@ -74,6 +77,7 @@ function Cart() {
     const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('token')
 
         window.location.href = "/";
     }

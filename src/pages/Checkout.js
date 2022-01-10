@@ -13,7 +13,8 @@ function Checkout() {
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
         const data = {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/details', data)
@@ -31,7 +32,8 @@ function Checkout() {
         const data = {
             orderId: orderDetails.orderId,
             userId: localStorage.getItem('userId'),
-            payment: true
+            payment: true,
+            token: localStorage.getItem("token")
         };
 
         axios.post(BASE_URL + '/api/v1/order/edit', data)
@@ -48,6 +50,7 @@ function Checkout() {
     const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('token')
 
         window.location.href = "/";
     }

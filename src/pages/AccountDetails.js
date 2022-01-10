@@ -18,13 +18,15 @@ function AccountDetails() {
     const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('token')
 
         window.location.href = "/";
     }
 
     useEffect(() => {
         const data = {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            token: localStorage.getItem("token")
         };
         setUsername(localStorage.getItem("username"));
         setShowUsername(localStorage.getItem("username"));
@@ -50,11 +52,12 @@ function AccountDetails() {
             email,
             phone: '',
             address,
-            userId: localStorage.getItem('userId')
+            userId: localStorage.getItem('userId'),
+            token: localStorage.getItem("token")
         }
-        if(phone.length > 0) {
+        if (phone.length > 0) {
             const phoneno = /^\d{10}$/;
-            if(!phoneno.test(phone)) {
+            if (!phoneno.test(phone)) {
                 setErrorMsg('Phone number is invalid')
             } else {
                 data.phone = phone;

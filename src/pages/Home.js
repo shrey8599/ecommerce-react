@@ -12,13 +12,17 @@ function Home() {
     const logoutFn = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('token')
 
         window.location.href = "/";
     }
 
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
-        axios.post(BASE_URL + '/api/v1/category/all', {})
+        const data = {
+            token: localStorage.getItem("token")
+        }
+        axios.post(BASE_URL + '/api/v1/category/all', data)
             .then(function (response) {
                 if (response.data.success) {
                     setCategoryList(response.data.categories);
