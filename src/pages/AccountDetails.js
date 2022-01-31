@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/accountDetails.css';
 
-const BASE_URL = 'http://13.235.87.215:4000';
+const BASE_URL = 'http://localhost:4000';
 
 function AccountDetails() {
     const [username, setUsername] = useState('User');

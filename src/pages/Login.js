@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../styles/login.css';
 import { Link } from "react-router-dom";
 
-const BASE_URL = 'http://13.235.87.215:4000';
+const BASE_URL = 'http://localhost:4000';
 
 function Login() {
     const [showSignup, setShowSignup] = useState(false);

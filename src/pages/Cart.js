@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import '../styles/cart.css';
 
-const BASE_URL = 'http://13.235.87.215:4000';
+const BASE_URL = 'http://localhost:4000';
 
 function Cart() {
     const [orderDetails, setOrderDetails] = useState({});
